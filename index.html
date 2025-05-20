@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Love Video for You 💖</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Quicksand:wght@400;700&display=swap');
+
+  body {
+    margin: 0;
+    background-image:url(background-small.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+  .container {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    text-align: center;
+    user-select: none;
+  }
+  h1 {
+    background-color: #faa3ee;
+    border: none;
+    border-radius: 60px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 15px rgba(243, 139, 165, 0.4);
+    transition: background-color 0.3s ease;
+    padding: 0.7rem 2rem;
+    user-select: none;
+    font-size: 4.5rem;
+    font-weight: 800;
+    margin: 0 0 20px 0;
+    text-shadow: 2px 2px 8px rgba(255, 0, 212, 0.3);
+    color: #ffffff;
+  }
+  .message {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 60px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 10px 25px rgba(243, 86, 125, 0.4);
+    transition: background-color 0.3s ease;
+    padding: 0.7rem 2rem;
+    user-select: none;
+    font-size: 1.6rem;
+    font-weight: 700;
+    max-width: 600px;
+    line-height: 1.4;
+    margin: 0 0 30px 0;
+    text-shadow: 1px 1px 5px rgba(231, 0, 0, 0.2);
+    color: #faa3ee;
+  }
+  .heart {
+    position: absolute;
+    bottom: 20px;
+    font-size: 100px;
+    color: #ff3366;
+    animation: heartbeat 1.5s infinite ease-in-out;
+    filter: drop-shadow(0 0 10px #ff3366);
+    user-select: none;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% {
+      transform: scale(1);
+      filter: drop-shadow(0 0 10px #ff3366);
+    }
+    50% {
+      transform: scale(1.2);
+      filter: drop-shadow(0 0 20px #ff6699);
+    }
+  }
+
+  /* Floating hearts animation */
+  .floating-heart {
+    position: absolute;
+    bottom: -50px;
+    font-size: 2rem;
+    color: #ff4d6d;
+    animation-timing-function: linear;
+    opacity: 0.9;
+    user-select: none;
+  }
+
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 0.9;
+    }
+    100% {
+      transform: translateY(-120vh) scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  button {
+    background-color: #000000;
+    border: none;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 40px;
+    padding: 0.7rem 2rem;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(243, 86, 125, 0.4);
+    transition: background-color 0.3s ease;
+    user-select: none;
+  }
+  button:hover {
+    background-color: #ffffff;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 10px;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.7);
+  }
+</style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="Love message video">
+    <h1>To his most lovely person</h1>
+    <p class="message" id="message-text">คิดถึงเเฟน!!💖</p>
+    <button id="next-btn" aria-live="polite" aria-label="Next message">Next</button>
+    <div class="heart" aria-hidden="true">❤️</div>
+  </div>
+
+  <footer>With all my love, forever and always 💕</footer>
+
+  <script>
+    const messages = [
+      "เค้ารักอ้วนมาดๆเบย💖",
+      "เธอไปโรงเรียนเค้าคิดถึงเธอมาดๆ ✨",
+      "คิดถึงเเฟนๆๆๆๆๆ ❤️‍🔥",
+      "เมื่อไหร่เเฟนจะกลับ ☀️",
+      "คิดถึงเเฟนจางกลับบ้านเถอะ 🏠💗",
+      "กลับอ๊ะยางอยากคุยเเนะ 😘",
+      "เค้าคิดถึงเเฟน😿 💞"
+    ];
+
+    const messageText = document.getElementById('message-text');
+    const nextBtn = document.getElementById('next-btn');
+    let currentIndex = 0;
+
+    nextBtn.addEventListener('click', () => {
+      currentIndex++;
+      if (currentIndex >= messages.length) {
+        currentIndex = 0;
+      }
+      messageText.textContent = messages[currentIndex];
+    });
+
+    // Floating hearts generator
+    function createFloatingHeart() {
+      const heart = document.createElement('div');
+      heart.textContent = '❤️';
+      heart.classList.add('floating-heart');
+
+      // Random horizontal position
+      heart.style.left = Math.random() * 100 + 'vw';
+      // Random size
+      const size = (Math.random() * 20) + 15;
+      heart.style.fontSize = size + 'px';
+
+      // Random animation duration and delay
+      const duration = 4000 + Math.random() * 3000;
+      const delay = Math.random() * 5000;
+      heart.style.animation = `floatUp ${duration}ms linear forwards`;
+      heart.style.animationDelay = delay + 'ms';
+
+      document.body.appendChild(heart);
+
+      // Remove after animation ends
+      setTimeout(() => {
+        heart.remove();
+      }, duration + delay);
+    }
+
+    // Generate hearts continuously
+    setInterval(createFloatingHeart, 500);
+
+    // Auto cycle messages every 5 seconds
+    setInterval(() => {
+      currentIndex++;
+      if (currentIndex >= messages.length) currentIndex = 0;
+      messageText.textContent = messages[currentIndex];
+    }, 5000);
+
+  </script>
+</body>
+</html>
+
